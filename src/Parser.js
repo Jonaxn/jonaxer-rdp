@@ -17,7 +17,10 @@ class Parser {
      *  ;
      */
     Program() {
-        return this.NumericLiteral();
+        return {
+            type: "Program",
+            body: this.NumericLiteral(),
+        }
     }
 
     /**
@@ -27,7 +30,8 @@ class Parser {
      */
     NumericLiteral() {
         return {
-            type: "NumericLiteral", value: Number(this._string)
+            type: "NumericLiteral",
+            value: Number(this._string),
         }
     }
 }
