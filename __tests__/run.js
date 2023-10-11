@@ -1,11 +1,11 @@
 /**
-* Main test number
-*/
-const {Parser} = require('../src/Parser')
+ * Main test number
+ */
+const {Parser} = require("../src/Parser")
 
 const parser = new Parser()
 
-const program = `42`
+const program = `"24"`
 
 const ast = parser.parse(program)
 

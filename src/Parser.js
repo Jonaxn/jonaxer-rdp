@@ -37,10 +37,24 @@ class Parser {
     Program() {
         return {
             type: "Program",
-            body: this.NumericLiteral(),
+            body: this.Literal(),
         }
     }
 
+    /**
+     * Literal
+     *  : NumericLiteral
+     *  | StringLiteral
+     */
+    Literal() {
+        switch (this._lookahead.type) {
+            case "NUMBER":
+                return this.NumericLiteral()
+            case "STRING":
+                return this.StringLiteral()
+        }
+        return new SyntaxError(`Literal: unexpected literal production`)
+    }
     /**
      * NumericLiteral
      *  : NUMBER
@@ -53,7 +67,18 @@ class Parser {
             value: Number(token.value),
         }
     }
-
+    /**
+     * StringLiteral
+     *  : String
+     *  ;
+     */
+    StringLiteral() {
+        const token = this._eat("STRING")
+        return {
+            type: "StringLiteral",
+            value: token.value.slice(1, -1),
+        }
+    }
     /**
      * Expects a token of a given type
      */
