@@ -33,16 +33,12 @@ class Tokenizer {
         }
         let string = this._string.slice(this._cursor)
 
-        // Numbers:
-        if (!Number.isNaN(Number(string[0]))) {
-            let number = ""
-            while (!Number.isNaN(Number(string[this._cursor]))) {
-                number += string[this._cursor]
-                this._cursor++
-            }
+        // Numbers: \d+
+        let matched = /^\d+/.exec(string)
+        if (matched[0] !== null) {
             return {
                 type: "NUMBER",
-                value: number,
+                value: matched[0],
             }
         }
 
