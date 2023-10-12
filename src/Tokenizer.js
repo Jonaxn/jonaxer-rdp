@@ -34,8 +34,9 @@ class Tokenizer {
         let string = this._string.slice(this._cursor)
 
         // Numbers: \d+
+        console.log(string)
         let matched = /^\d+/.exec(string)
-        if (matched[0] !== null) {
+        if (matched !== null) {
             this._cursor += matched[0].length
             return {
                 type: "NUMBER",
@@ -44,24 +45,12 @@ class Tokenizer {
         }
 
         // String:
-        if (string[0] === '"') {
-            let s = ""
-            do {
-                s += string[this._cursor]
-                this._cursor += 1
-            } while (string[this._cursor] !== '"' && !this.isEOF())
-            // may have bug here,
-            // s += string[this._cursor]
-            // i know why
-            // input "42", current s is 42
-            // but we have to add a character to the end
-            // no matter the character is
-            s += this._cursor
-            this._cursor += 1
-
+        matched = /^"[^"]*"/.exec(string)
+        if (matched !== null) {
+            this._cursor += matched[0].length
             return {
                 type: "STRING",
-                value: s,
+                value: matched[0],
             }
         }
         return null
