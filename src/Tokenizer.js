@@ -36,6 +36,7 @@ class Tokenizer {
         // Numbers: \d+
         let matched = /^\d+/.exec(string)
         if (matched[0] !== null) {
+            this._cursor += matched[0].length
             return {
                 type: "NUMBER",
                 value: matched[0],
