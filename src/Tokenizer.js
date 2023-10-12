@@ -7,6 +7,11 @@ const Spec = [
     [/^\s+/, null],
 
     // -------------
+    // Comments:
+    // Skip sing-line comments:
+    [/^\/\/.*/, null],
+
+    // -------------
     // Numbers:
     [/^\d+/, "NUMBER"],
 
