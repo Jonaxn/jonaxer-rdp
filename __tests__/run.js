@@ -5,7 +5,10 @@ const {Parser} = require("../src/Parser")
 
 const parser = new Parser()
 
-const program = `//  numbewr
+const program = `
+/**
+* numbewr
+*/
                 42
 `
 
