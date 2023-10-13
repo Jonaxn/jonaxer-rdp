@@ -37,8 +37,51 @@ class Parser {
     Program() {
         return {
             type: "Program",
-            body: this.Literal(),
+            body: this.StatemengList(),
         }
+    }
+
+    /**
+     * StatementList
+     *  : Statement
+     *  | StatementList Statement -> Statament Statement ...
+     */
+    StatemengList() {
+        const statementList = [this.Statement()]
+        while (this._lookahead != null) {
+            statementList.push(this.Statement())
+        }
+        return statementList
+    }
+    /**
+     *  Statement
+     *  : ExpressionSatement
+     *  ;
+     */
+    Statement() {
+        return this.ExpressionStatement()
+    }
+    /**
+     * ExpressionStatement
+     *  : Expression ';'
+     *
+     */
+    ExpressionStatement() {
+        const expression = this.Expression()
+        this._eat(";")
+        return {
+            type: "ExpressionStatement",
+            expression,
+        }
+    }
+
+    /**
+     * Expression
+     *  : Literal
+     *  ;
+     */
+    Expression() {
+        return this.Literal()
     }
 
     /**

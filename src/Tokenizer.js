@@ -14,6 +14,10 @@ const Spec = [
     [/^\/\*[\s\S]*?\*\//, null],
 
     // -------------
+    // Symbols, delimiters
+    [/^;/, ";"],
+
+    // -------------
     // Numbers:
     [/^\d+/, "NUMBER"],
 
