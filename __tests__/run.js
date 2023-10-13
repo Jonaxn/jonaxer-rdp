@@ -7,7 +7,7 @@ const assert = require("assert")
 /**
  * List of tests
  */
-const tests = [require("./literals-test")]
+const tests = [require("./literals-test"), require("./statement-list-test")]
 
 const parser = new Parser()
 
@@ -16,7 +16,9 @@ function exec() {
     /**
     * numbewr
     */
-                    42;
+    42;
+    // string
+    "hello";
     `
 
     const ast = parser.parse(program)

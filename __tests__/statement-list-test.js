@@ -1,7 +1,14 @@
 module.exports = (test) => {
     // NumericLiteral
-
-    test(`42;`, {
+    const program = `
+    /**
+    * numbewr
+    */
+    42;
+    // string
+    "hello";
+    `
+    const ast = {
         type: "Program",
         body: [
             {
@@ -11,13 +18,6 @@ module.exports = (test) => {
                     value: 42,
                 },
             },
-        ],
-    })
-
-    // StringLiteral
-    test(`"hello";`, {
-        type: "Program",
-        body: [
             {
                 type: "ExpressionStatement",
                 expression: {
@@ -26,17 +26,6 @@ module.exports = (test) => {
                 },
             },
         ],
-    })
-    test(`'hello';`, {
-        type: "Program",
-        body: [
-            {
-                type: "ExpressionStatement",
-                expression: {
-                    type: "StringLiteral",
-                    value: "hello",
-                },
-            },
-        ],
-    })
+    }
+    test(program, ast)
 }
