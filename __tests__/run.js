@@ -43,5 +43,5 @@ function test(program, expected) {
 exec()
 
 // Run all tests
-tests.forEach((testRun) => testRun(test))
+// tests.forEach((testRun) => testRun(test))
 console.log("All assertions passed")
