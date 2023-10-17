@@ -1,4 +1,5 @@
 // parser: recursive descent implementation
+const {log} = require("console")
 const {Tokenizer} = require("./Tokenizer")
 
 // ------------------------------------------
@@ -50,8 +51,8 @@ const SExpressionFactory = {
 
 const AST_MODE = "default"
 
-// const factory = AST_MODE == "default" ? DefaultFactory : SExpressionFactory
-const factory = AST_MODE == "s-expression" ? DefaultFactory : SExpressionFactory
+const factory = AST_MODE == "default" ? DefaultFactory : SExpressionFactory
+// const factory = AST_MODE == "s-expression" ? DefaultFactory : SExpressionFactory
 
 class Parser {
     /**
@@ -160,9 +161,74 @@ class Parser {
      *  ;
      */
     Expression() {
-        return this.Literal()
+        return this.AdditiveExpression()
     }
 
+    /**
+     * AdditiveExpression
+     *  : MultiplicativeExpression
+     *  | AdditiveExpression ADDITIVE_OPERATOR Literal -> MultiplicativeExpression ADDITIVE_OPERATOR Literal
+     *  ;
+     */
+    AdditiveExpression() {
+        return this._BinaryExpression(
+            "MultiplicativeExpression",
+            "ADDITIVE_OPERATOR"
+        )
+    }
+    /**
+     * MultiplicativeExpression
+     *  : PrimaryExpression
+     *  | MultiplicativeExpression MULTIPLICATIVE_OPERATOR PrimaryExpression -> PrimaryExpression MULTIPLICATIVE_OPERATOR PrimaryExpression
+     */
+    MultiplicativeExpression() {
+        return this._BinaryExpression(
+            "PrimaryExpression",
+            "MULTIPLICATIVE_OPERATOR"
+        )
+    }
+    /**
+     * PrimaryExpression
+     *  : Literal
+     *  | ParenthesizedExpression
+     *  ;
+     */
+    PrimaryExpression() {
+        switch (this._lookahead.type) {
+            case "(":
+                return this.ParenthesizedExpression()
+            default:
+                return this.Literal()
+        }
+    }
+    /**
+     * Generic binary expression
+     */
+    _BinaryExpression(builderName, operatorToken) {
+        let left = this[builderName]()
+        while (this._lookahead.type === operatorToken) {
+            const operator = this._eat(operatorToken).value
+            const right = this[builderName]()
+            left = {
+                type: "BinaryExpression",
+                operator,
+                left,
+                right,
+            }
+        }
+        return left
+    }
+    /**
+     * ParenthesizedExpression
+     *  : '(' Expression ')'
+     *  ;
+     */
+    ParenthesizedExpression() {
+        this._eat("(")
+        const expression = this.Expression()
+        this._eat(")")
+        return expression
+    }
     /**
      * Literal
      *  : NumericLiteral
@@ -206,6 +272,9 @@ class Parser {
             )
         }
         if (token.type !== tokenType) {
+            console.log(
+                `Unexpected token: "${token.value}", expected: "${tokenType}"`
+            )
             throw new SyntaxError(
                 `Unexpected token: "${token.value}", expected: "${tokenType}"`
             )
