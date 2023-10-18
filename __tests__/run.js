@@ -19,12 +19,10 @@ const parser = new Parser()
 
 function exec() {
     const program = ` 
-    /**
-    * numbewr
-    */
-    (2 + 2)* 2;
-    // string
-    "hello";
+    x -= 1;
+    x *= 1;
+    x /= 1;
+    x += 1;
     `
 
     const ast = parser.parse(program)
