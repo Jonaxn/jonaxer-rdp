@@ -26,6 +26,7 @@ function exec() {
     let x = 42;
     let a, b = 10;
     r = 10;
+    let foo = bar = 10;
     `
 
     const ast = parser.parse(program)

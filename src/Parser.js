@@ -119,9 +119,68 @@ class Parser {
                 return this.BlockStatement()
             case ";":
                 return this.EmptyStatement()
+            case "let":
+                return this.VariableStatement()
             default:
                 return this.ExpressionStatement()
         }
+    }
+    /**
+     * VariableStatement
+     *  : 'let' VariableDeclarationList ';'
+     *  ;
+     */
+    VariableStatement() {
+        this._eat("let")
+        const declarations = this.VariableDeclarationList()
+        this._eat(";")
+        return {
+            type: "VariableStatement",
+            declarations,
+        }
+    }
+
+    /**
+     * VariableDeclarationList
+     *  : VariableDeclaration
+     *  | VariableDeclarationList ',' VariableDeclaration
+     *  ;
+     */
+    VariableDeclarationList() {
+        const declarations = []
+        do {
+            declarations.push(this.VariableDeclaration())
+        } while (this._lookahead.type == "," && this._eat(","))
+        return declarations
+    }
+    /**
+     * VariableDeclaration
+     *  : Initializer OptVariableInitializer
+     *  ;
+     */
+    VariableDeclaration() {
+        const id = this.Identifier()
+
+        // OptVariableInitializer
+        const init =
+            this._lookahead.type !== ";" && this._lookahead.type !== ","
+                ? this.VariableInitializer()
+                : null
+
+        return {
+            type: "VariableDeclarator",
+            id,
+            init,
+        }
+    }
+    /**
+     * VariableInitializer
+     *  : SIMPLE_ASSIGN AssignmentExpression
+     *  ;
+     */
+    VariableInitializer() {
+        this._eat("SIMPLE_ASSIGN")
+        return this.AssignmentExpression()
     }
     /**
      * EmptyStatement
