@@ -15,18 +15,18 @@ const tests = [
     require("./math-test"),
     require("./assignment-test"),
     require("./variable-test"),
+    require("./if-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
     const program = ` 
-    let y;
-    let a, b;
-    let x = 42;
-    let a, b = 10;
-    r = 10;
-    let foo = bar = 10;
+    if (x) {
+        x = 1;    
+    } else {
+        x = 2;
+    } 
     `
 
     const ast = parser.parse(program)

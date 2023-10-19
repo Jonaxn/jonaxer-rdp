@@ -25,6 +25,8 @@ const Spec = [
     // -------------
     // keywords:
     [/^\blet\b/, "let"],
+    [/^\bif\b/, "if"],
+    [/^\belse\b/, "else"],
 
     // -------------
     // Numbers:
