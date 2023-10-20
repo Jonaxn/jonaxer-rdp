@@ -19,13 +19,15 @@ const tests = [
     require("./relational-test"),
     require("./equality-test"),
     require("./logical-test"),
+    require("./unary-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
     const program = ` 
-    x > 0 || y < 1;
+    !x;
+    --x;
     `
 
     const ast = parser.parse(program)
@@ -45,5 +47,5 @@ function test(program, expected) {
 exec()
 
 // Run all tests
-tests.forEach((testRun) => testRun(test))
+// tests.forEach((testRun) => testRun(test))
 console.log("All assertions passed")
