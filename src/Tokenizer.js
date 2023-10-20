@@ -45,6 +45,10 @@ const Spec = [
     [/^[+\-]/, "ADDITIVE_OPERATOR"],
     [/^[*\/]/, "MULTIPLICATIVE_OPERATOR"],
 
+    //--------------
+    // Relational Operators: >, <, >=, <=
+    [/^[><]=?/, "RELATIONAL_OPERATOR"],
+
     // -------------
     // Strings:
     [/^"[^"]*"/, "STRING"],
