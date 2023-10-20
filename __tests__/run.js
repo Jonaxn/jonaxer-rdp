@@ -17,13 +17,15 @@ const tests = [
     require("./variable-test"),
     require("./if-test"),
     require("./relational-test"),
+    require("./equality-test"),
+    require("./logical-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
     const program = ` 
-    x + 5 > 10;
+    x > 0 || y < 1;
     `
 
     const ast = parser.parse(program)
