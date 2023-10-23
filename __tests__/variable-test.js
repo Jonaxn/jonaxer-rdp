@@ -9,7 +9,7 @@ module.exports = (test) => {
                 type: "VariableStatement",
                 declarations: [
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "x",
@@ -32,7 +32,7 @@ module.exports = (test) => {
                 type: "VariableStatement",
                 declarations: [
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "x",
@@ -52,7 +52,7 @@ module.exports = (test) => {
                 type: "VariableStatement",
                 declarations: [
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "x",
@@ -60,7 +60,7 @@ module.exports = (test) => {
                         init: null,
                     },
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "y",
@@ -80,7 +80,7 @@ module.exports = (test) => {
                 type: "VariableStatement",
                 declarations: [
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "x",
@@ -88,7 +88,7 @@ module.exports = (test) => {
                         init: null,
                     },
                     {
-                        type: "VariableDeclarator",
+                        type: "VariableDeclaration",
                         id: {
                             type: "Identifier",
                             name: "y",

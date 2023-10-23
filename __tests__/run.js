@@ -20,14 +20,18 @@ const tests = [
     require("./equality-test"),
     require("./logical-test"),
     require("./unary-test"),
+    require("./while-test"),
+    require("./do-while-test"),
+    require("./for-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
-    const program = ` 
-    !x;
-    --x;
+    const program = `
+    for (let i = 0; i < 10; i += 1) {
+        x -= 1;
+    }
     `
 
     const ast = parser.parse(program)
@@ -47,5 +51,5 @@ function test(program, expected) {
 exec()
 
 // Run all tests
-// tests.forEach((testRun) => testRun(test))
+tests.forEach((testRun) => testRun(test))
 console.log("All assertions passed")

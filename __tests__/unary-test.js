@@ -1,5 +1,5 @@
 module.exports = (test) => {
-    test("-x", {
+    test("-x;", {
         type: "Program",
         body: [
             {
@@ -16,7 +16,7 @@ module.exports = (test) => {
         ],
     })
 
-    test("!x", {
+    test("!x;", {
         type: "Program",
         body: [
             {
