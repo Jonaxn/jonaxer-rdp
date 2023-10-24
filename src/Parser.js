@@ -114,6 +114,8 @@ class Parser {
      *  | VariableStatement
      *  | IfStatement
      *  | IterationStatement
+     *  | FunctionDeclaration
+     *  | ReturnStatement
      *  ;
      */
     Statement() {
@@ -126,6 +128,10 @@ class Parser {
                 return this.BlockStatement()
             case "let":
                 return this.VariableStatement()
+            case "return":
+                return this.ReturnStatement()
+            case "def":
+                return this.FunctionDeclaration()
             case "while":
             case "do":
             case "for":
@@ -134,6 +140,57 @@ class Parser {
                 return this.ExpressionStatement()
         }
     }
+    /**
+     * FunctionDeclaration
+     *  : 'def' Identifier '(' FormalParameterList ')' Block
+     *  ;
+     */
+    FunctionDeclaration() {
+        this._eat("def")
+        const name = this.Identifier()
+        this._eat("(")
+
+        // OptFormalParameterList
+        const params =
+            this._lookahead.type !== ")" ? this.FormalParameterList() : []
+        this._eat(")")
+
+        const body = this.BlockStatement()
+        return {
+            type: "FunctionDeclaration",
+            name,
+            params,
+            body,
+        }
+    }
+    /**
+     * ForamlParameterList
+     *  : Identifier
+     *  | FormalParameterList ',' Identifier
+     *  ;
+     */
+    FormalParameterList() {
+        const params = []
+        do {
+            params.push(this.Identifier())
+        } while (this._lookahead.type == "," && this._eat(","))
+        return params
+    }
+    /**
+     * ReturnStatement
+     *  : 'return' OptExpression ';'
+     *  ;
+     */
+    ReturnStatement() {
+        this._eat("return")
+        const argument = this._lookahead.type != ";" ? this.Expression() : null
+        this._eat(";")
+        return {
+            type: "ReturnStatement",
+            argument,
+        }
+    }
+
     /**
      * IterationStatement
      *  : WhileStatement
