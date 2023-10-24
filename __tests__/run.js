@@ -24,19 +24,14 @@ const tests = [
     require("./do-while-test"),
     require("./for-test"),
     require("./function-declaration-test"),
+    require("./member-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
     const program = `
-    def square(x) {
-        return x * x;
-    }
-
-    def empty(x, y) {
-        
-    }
+    a.b.c['d'];
     `
 
     const ast = parser.parse(program)
