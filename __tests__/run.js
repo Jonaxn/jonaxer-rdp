@@ -25,13 +25,17 @@ const tests = [
     require("./for-test"),
     require("./function-declaration-test"),
     require("./member-test"),
+    require("./call-test"),
 ]
 
 const parser = new Parser()
 
 function exec() {
     const program = `
-    a.b.c['d'];
+    square(2);
+    console.log(x, y);
+    getCallback()();
+
     `
 
     const ast = parser.parse(program)
