@@ -38,6 +38,11 @@ const Spec = [
     [/^\bfor\b/, "for"],
     [/^\breturn\b/, "return"],
     [/^\bdef\b/, "def"],
+    [/^\bclass\b/, "class"],
+    [/^\bnew\b/, "new"],
+    [/^\bthis\b/, "this"],
+    [/^\bextends\b/, "extends"],
+    [/^\bsuper\b/, "super"],
 
     // -------------
     // Numbers:

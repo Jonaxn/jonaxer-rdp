@@ -32,10 +32,30 @@ const parser = new Parser()
 
 function exec() {
     const program = `
-    square(2);
-    console.log(x, y);
-    getCallback()();
+    class Point {
+        def constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        
+        def calc() {
+            return this.x + this.y;
+        }
+    }
 
+    class Point3D extends Point {
+        def constructor(x, y, z) {
+            super(x, y);
+            this.z = z;
+        }
+
+        def calc() {
+            return super() + this.z;
+        }
+    }
+
+    let p = new Point3D(1, 2, 3);
+    p.calc();
     `
 
     const ast = parser.parse(program)
